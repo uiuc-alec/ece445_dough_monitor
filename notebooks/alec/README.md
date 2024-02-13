@@ -1,2 +1,35 @@
 # Alec's Notebook
-This directory will contain Alec's personal contributions and digital lab notebook.
+
+2024-01-23 - Preliminary parts research
+=======================================
+
+Jake started looking into a lot of the parts for the project, and I found a display and battery that would likely work too. 
+
+Display: [4x16 Character LCD](https://newhavendisplay.com/4x16-character-lcd-stn-blue-display-with-white-side-backlight/)  
+Battery: [Adafruit Li-ion battery - 3.7V 2000mAh](https://www.microcenter.com/product/503621/Lithium_Ion_Battery_-_37v_2000mAh)
+
+This display would be simpler than some others that might have more customizable (just a 4x16 character LCD compared to being able to write each pixel), but we are still exploring options and if this is really what we should go with.
+
+2024-02-08 - Proposal
+=======================================
+
+I worked on the block diagram, tolerance analysis, subsystem requirements (with Jake), and document formatting for the Project proposal. 
+The tolerance analysis uses ESP32-S3 as the MCU because with some of the software stretch goals we have, the ESP32 would allow us to connect to the wifi and let us potentially connect to AWS and a mobile app. However, with the experience Jake has with the STM32 and some of the extra resources the STM32 has (IDE and documentation), we will likely be using that instead and offloading any of the connectivity and AWS connections to a Raspberry Pi Zero communicating with our MCU. We think this will allow Abhitya to work on some of the software functionality without needing the hardware side mostly done and keep the main focus of the project on our more hardware focused goals.
+
+2024-02-10 - Display research/design
+====================================
+
+Jake did some more research on the displays and potentially using a more customizable display communicating with the MCU. I thought this seemed like a fine idea because it brings some embedded software components to the main functionality of the project, which is good for Abhitya and me. I did a bit more research into the [Pervasive Displays brand E-ink display](https://www.digikey.com/en/products/detail/pervasive-displays/E2266JS0C1/13572401) and found the [actual datasheet](https://www.pervasivedisplays.com/wp-content/uploads/2021/12/1P257-00_04_E2266CS0C1-E2266CS0C2_20211129.pdf) and found out all the communciation with the MCU would be via SPI, which should be a doable challenge since we have some experience on the team with SPI. I also found a [development kit for the displays](https://www.pervasivedisplays.com/product/epd-extension-kit-gen-3-ext3/) that might be useful whenever we are usign development boards at first. 
+
+2024-02-13 - Questions for TA and other considerations
+====================================
+
+I have been thinking about how we should be finalizing our components. Something I would like to ask the TA is about our current choices for sensors because some of them don't have exposed leads, which seemed like something they pushed us to try to find in lecture. So, getting feedback on these components and if we need to find others with exposed leads that are similar instead would be helpful. 
+
+Our team has discussed how the boards will be configured since we probably need two, one main board with the MCU, display, buttons, etc on top and a smaller board with the sensors to be attached to the underside of a lid. The thought is that power and data cables could easily be run to this board while still keeping the container relatively closed and at a good temperature. If not, we may have to explore two boards and wireless communication. 
+
+We are wondering when we should be starting and really finishing a lot of the development board work. It seems like we should be starting this week to me, but I am not sure if I am skipping over some steps. 
+
+Something I need to ask the team about is the power module and how that system is really supposed to work. I made the block diagram according to some other systems I had seen with similar setups, but I don't quite understand what the whole module would look like in hardware.
+
+I have been looking into different distance sensors, but I have not been able to find anything with exposed leads that really fits for our application yet. There are quite a few modules that already have a PCB and communicate via I2C with the MCU, but the search for just a sensor with exposed leads has been less fruitful. Is something like [this](https://4donline.ihs.com/images/VipMasterIC/IC/VISH/VISH-S-A0011791776/VISH-S-A0011791776-1.pdf?hkey=CECEF36DEECDED6468708AAF2E19C0C6) better? Or is something like [this](https://www.mouser.com/ProductDetail/KEMET/SS-430?qs=vLWxofP3U2z%2FzgQsnF8qAg%3D%3D) better than a solderable component if we can't find one with exposed leads?
