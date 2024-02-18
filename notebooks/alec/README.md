@@ -33,3 +33,14 @@ We are wondering when we should be starting and really finishing a lot of the de
 Something I need to ask the team about is the power module and how that system is really supposed to work. I made the block diagram according to some other systems I had seen with similar setups, but I don't quite understand what the whole module would look like in hardware.
 
 I have been looking into different distance sensors, but I have not been able to find anything with exposed leads that really fits for our application yet. There are quite a few modules that already have a PCB and communicate via I2C with the MCU, but the search for just a sensor with exposed leads has been less fruitful. Is something like [this](https://4donline.ihs.com/images/VipMasterIC/IC/VISH/VISH-S-A0011791776/VISH-S-A0011791776-1.pdf?hkey=CECEF36DEECDED6468708AAF2E19C0C6) better? Or is something like [this](https://www.mouser.com/ProductDetail/KEMET/SS-430?qs=vLWxofP3U2z%2FzgQsnF8qAg%3D%3D) better than a solderable component if we can't find one with exposed leads?
+
+
+2024-02-16 - Project Proposal
+====================================
+We ended up getting an 18/21 on our project proposal, which is good relative to the other groups (average < 15), but we would like to get more feedback on what was lacking or wrong to improve our Design document and how we might be able to regain some of those points through the regrade. The only element of our proposal that I thought may have been lacking compared to some groups is that we hadn't locked down exactly what components we are going to use, but I also didn't think having specific components picked out was a requirement of that assignment. 
+
+I also was looking into the difference between the Design Document and the Proposal and saw two main differences between the example Design Doc and their Proposal
+1. Their requirements and verifications were significantly improved and "beefed up"
+2. There are a lot more details worked out for implementation, exact parts needed, and how the project more completely works.
+
+We had some of our verifications already done (and removed) from the Proposal, so that is not the biggest concern with the Design Doc. Locking down exact details and parts will be very important for this assignment, though, and where I anticipate most of our work will be. 
