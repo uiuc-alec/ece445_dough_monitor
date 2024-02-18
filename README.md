@@ -14,3 +14,4 @@ Team Members:
 ### Doc links:
 - [RFA](https://docs.google.com/document/d/1kF1rHTl5g_Uzm8IN8ehcqM2Bl3i7Av3ugFFKGpFKIh4/edit?usp=sharing)
 - [Project Proposal](https://docs.google.com/document/d/1TKZvJ8-ajKKCzJN4BzpvQgP6Wtzp_BtlWftU6C2UMDA/edit?usp=sharing)
+- [Design Document](https://docs.google.com/document/d/1KsPt3ziOBMEgM2YeDxTdxmcEFOSrHt8D0JKil-PqETM/edit?usp=sharing)
