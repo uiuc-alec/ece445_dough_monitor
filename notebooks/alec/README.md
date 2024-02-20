@@ -44,3 +44,7 @@ I also was looking into the difference between the Design Document and the Propo
 2. There are a lot more details worked out for implementation, exact parts needed, and how the project more completely works.
 
 We had some of our verifications already done (and removed) from the Proposal, so that is not the biggest concern with the Design Doc. Locking down exact details and parts will be very important for this assignment, though, and where I anticipate most of our work will be. 
+
+2024-02-18 - Design Doc Progress
+====================================
+I worked on the Design Doc and research for a few hours, locking down some much needed details on the power subsystem and improving some of the Verifications (although I think worsened some of the Requirements {in regards to the rubric} to make them more user behavior driven than criteria driven). This is something we need to ask the TA about this week. We also need to ask the TA if the Design Document is intended for us only to think more about our project details or if we will lose points if we need to change components or even a RV that ended up being impossible or unneeded. I also updated the sensor subsystem information and filled out most of the cost analysis table. There is still a fair bit of needed research and updates to the doc to be done before the deadline, and I know things will pick up once Jake is done with his exams and Abhitya starts working on the Design Doc too.
