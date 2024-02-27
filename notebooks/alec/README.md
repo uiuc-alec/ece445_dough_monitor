@@ -48,3 +48,12 @@ We had some of our verifications already done (and removed) from the Proposal, s
 2024-02-18 - Design Doc Progress
 ====================================
 I worked on the Design Doc and research for a few hours, locking down some much needed details on the power subsystem and improving some of the Verifications (although I think worsened some of the Requirements {in regards to the rubric} to make them more user behavior driven than criteria driven). This is something we need to ask the TA about this week. We also need to ask the TA if the Design Document is intended for us only to think more about our project details or if we will lose points if we need to change components or even a RV that ended up being impossible or unneeded. I also updated the sensor subsystem information and filled out most of the cost analysis table. There is still a fair bit of needed research and updates to the doc to be done before the deadline, and I know things will pick up once Jake is done with his exams and Abhitya starts working on the Design Doc too.
+
+2024-02-22 - Finishing Design Doc
+====================================
+Our team finished the Design Doc and made corrections to our Project Proposal. I probably worked on the Design Doc for 4+ hours throughout the day, finishing all the requirements and verifications, making the state machine, the example UI button interface, doing a lot of research to add more details and the "why" behind some of our hardware choices (mainly the sensors and why we chose certain kinds over others). Overall, we are pretty satisfied with how everything turned out, and I know Jake did a lot of work on the actual design too, so we have a much better idea of implementation now too. 
+
+
+2024-02-26 - Design Review Prep
+====================================
+I researched I2C and how our distance (VCSEL) sensor implements I2C. I also found the libraries we can use to help program the distance sensor and some example STM32F code for the sensor. Since our display is no longer just a character display and uses SPI, I researched that as well and found some libraries we can use to help us program the display and all of the documentation and examples with an Uno and some development boards. Doing some intial testing with the displays and the STM32 development board are two of the tasks I plan on working on in the next two weeks, starting with ordering some of the parts tomorrow morning. 
