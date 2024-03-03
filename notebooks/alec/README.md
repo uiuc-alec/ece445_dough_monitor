@@ -57,3 +57,9 @@ Our team finished the Design Doc and made corrections to our Project Proposal. I
 2024-02-26 - Design Review Prep
 ====================================
 I researched I2C and how our distance (VCSEL) sensor implements I2C. I also found the libraries we can use to help program the distance sensor and some example STM32F code for the sensor. Since our display is no longer just a character display and uses SPI, I researched that as well and found some libraries we can use to help us program the display and all of the documentation and examples with an Uno and some development boards. Doing some intial testing with the displays and the STM32 development board are two of the tasks I plan on working on in the next two weeks, starting with ordering some of the parts tomorrow morning. 
+
+
+2024-03-1 - First Attempt in Displays Programming
+====================================
+Our display, the display development kit, and our distance sensors came in the mail, and I started playing around with the display and development kit. The documentation is slightly worse than I expected, and I was not able to get either the Pi Pico I had or the Arduino Uno I had working with the display. I ran into memory issues with the Uno, and I ran into setup issues with the Pi Pico that wouldn't allow me to program it with the code I had. I am fairly sure the Pervasive Displays libraries for the displays are fine, and if I can get around the memory issues by using a better Arduino board, I can start doing our actual text display development. 
+
