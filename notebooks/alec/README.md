@@ -66,3 +66,28 @@ Our display, the display development kit, and our distance sensors came in the m
 2024-03-6 - Second Attempt in Displays Programming
 ====================================
 Take two was not much better than take one. I managed to get rid of the memory error I had with the Uno by storing the bitmap files in flash memory instead of SRAM. However, it seems like I am still probably getting memory issues with the Uno not being able to load everything correctly into SRAM because it simply doesn't fit, but we shal see once I get a better MCU with more SRAM. Abhitya and I spent a few hours working on our stuff in that. It seemed like he found a lot of what needed to be done on the programming side of things once we have the STM32 to program and some of our other sensors, and I am more confident that the display will work well once we get an MCU with more memory. 
+
+2024-03-12 - Third Attempt in Displays Programming
+====================================
+Success! I managed to get the display to output all four of its colors over break once I got an Arduino with more memory (ESP32 version). I found some nice libraries to use in the Arduino IDE for the display I had since the other libraries online didn't work correctly, and this is going to be very helpful once we switch over to the STM32. 
+
+The only downside that I noticed is that the display takes a very long time to update since updating is not really its intended use. That should be fine since we don't update it but once every few minutes, but we were thinking about being able to display a seperate screen during the setup, and we do not know how long that will take, so we may have to opt for some status LEDs instead. 
+![IMG_9037](https://github.com/uiuc-alec/ece445_dough_monitor/assets/144295293/dd8cd608-49d2-4cb8-963d-d8bc8d9b6f2e)
+
+2024-03-24 - Developing with the Dev Board
+====================================
+I got the dev board out today (STM32 Nucleo-F103RB), connected it to our sensor module (see below), and got the temperature to output to the debug console and verified it at least reads temperature increases when the hot soldering iron is close. There is still a bit more work to do on the distance sensor end since that deals with I2C, and we need to read through more documentation to get the conversions from the data it sends us and distance. The steps to getting this set up are below.
+![IMG_9070](https://github.com/uiuc-alec/ece445_dough_monitor/assets/144295293/012603e4-753c-4d1d-902c-479e13d38f80)
+
+* Connect the [header](https://github.com/uiuc-alec/ece445_dough_monitor/assets/144295293/1f3ef5ef-3162-434d-9186-b3988bf72ae7) as so:
+  - Pin 1 to 3V3
+  - Pin 2 to SDA/D14
+  - Pin 3 to SCL/D15
+  - Pin 4 to A0
+  - Pin 5 to GND
+* Start CubeIDE. LOG IN to MY ST FIRST. You will get an error on download if you don't. Select STM32 Project. Click the tab with "Board Selector". Type in "Nucleo-F103RB" in the "Commercial Part Number" field. The board should be listed on the right side. Click it then click "Next"
+* Give it a name and feel free to change the location. Everyting else can stay default. Click "Finish". "Yes" to all the default windows that pop up. 
+* You should now see the chip outline on the right hand side. Find PB8 and PB9, click on each to change to "I2C1_SCL" and "I2C1_SDA", respectively. Similarly, change PA0 to "ADC1_IN0".
+* On the left hand "Categories" menu, expand "Connectivity" click I2C1. Then select "I2C" from the dropdown.
+* There is some issue with the clock now. Click "Clock Configuration" on the top menu and "Yes" to automatic clock solver. Click "Resolve Clock Issues". Now, Save the project and click "Yes" and  "Yes" to generate Code.
+* The updated main.c file will be in the [code directory](https://github.com/uiuc-alec/ece445_dough_monitor/tree/main/code), along with the project file if you would like to just use that instead. In case you have to go through setup again, this guide will help. 
