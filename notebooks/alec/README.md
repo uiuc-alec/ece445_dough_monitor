@@ -91,3 +91,8 @@ I got the dev board out today (STM32 Nucleo-F103RB), connected it to our sensor 
 * On the left hand "Categories" menu, expand "Connectivity" click I2C1. Then select "I2C" from the dropdown.
 * There is some issue with the clock now. Click "Clock Configuration" on the top menu and "Yes" to automatic clock solver. Click "Resolve Clock Issues". Now, Save the project and click "Yes" and  "Yes" to generate Code.
 * The updated main.c file will be in the [code directory](https://github.com/uiuc-alec/ece445_dough_monitor/tree/main/code), along with the project file if you would like to just use that instead. In case you have to go through setup again, this guide will help. 
+
+2024-03-26 - Developing with the Dev Board v2
+====================================
+Today consisted of a lot of playing around with the display with both the Arduino Nano ESP32 and the STM32 Nucleo Dev board, learning how the libraries and examples work and getting both to work in Arduino IDE. Getting the display to work in Cube IDE is still a work in progress, but that is the next step. Once I know how to get the display working in Cube IDE, I will start on the actual displays programming portion and output at least the temperature sensor data to the display (and the distance sensor data is Abhitya finishes the programming for that component as well). Good call by Jake on using the STM32. I don't know how using the ESP32 would have gone, but a lot of the work I have done in getting outputs to the display have been with some great documentation available online for the STM32 and some decent documentation from Pervasive Displays too.
+![IMG_9075](https://github.com/uiuc-alec/ece445_dough_monitor/assets/144295293/f6e62438-c51b-4def-a516-3e60a24a5ee5)
