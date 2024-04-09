@@ -103,7 +103,7 @@ void baseState(){
     // Only run if we have actually set the heights
     // This should run once every half second or so
     distance_data_out = sens.readPSData();  // Get current distance
-    current_height = container_height - double(distance_data_out); // convert from int to double. TODO: need abhitya's conversion for this
+    current_height = container_height - getDistance(distance_data_out); // convert from int to double. TODO: need abhitya's conversion for this
 
     if (current_height > peak_height){
       peak_height = current_height;     
