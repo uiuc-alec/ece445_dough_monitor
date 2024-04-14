@@ -45,7 +45,7 @@ StateMachine machine = StateMachine();
 
 double getDistance(uint16_t input_reading){
   // TODO for Abhitya
-  ;
+  return double(input_reading);
 }
 
 /*convertReading(double reading)
