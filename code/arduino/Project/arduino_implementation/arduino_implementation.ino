@@ -16,17 +16,17 @@
 #define DISPLAY_PALETTE_BWRY 0
 
 // Defines for the Sensors
-#define TEMPPIN 1
-#define CONTAINERPIN 2
-#define DOUGHPIN 3
-#define CONFIRMPIN 4
-#define CANCELPIN 5
+#define TEMPPIN A1
+#define CONTAINERPIN A2
+#define DOUGHPIN A3
+#define CONFIRMPIN A4
+#define CANCELPIN A5
 
 // Variables
 uint32_t temp_reading;
 double current_temperature, start_height, current_height, peak_height, container_height;
 uint16_t distance_data_out;
-bool container_button, dough_button, confirm_button, cancel_button;
+bool container_button, dough_button, confirm_button, cancel_button, display_flag;
 int display_count;
 const int STATE_DELAY = 500; // Set this
 const int DISPLAY_REFRESH_LIMIT = 30000; // 30 Seconds
@@ -44,8 +44,75 @@ StateMachine machine = StateMachine();
 // Functions
 
 double getDistance(uint16_t input_reading){
-  // TODO for Abhitya
-  return double(input_reading);
+  // These readings are going to be output in centimeters
+  double dist_transform;
+  if(input_reading > 400){//xd500
+    dist_transform = 1.0;
+  }
+  else if(input_reading > 295){//x9000
+    dist_transform = 1.5;
+  }
+  else if(input_reading > 185){//x7a00
+    dist_transform = 2.0;
+  }
+  else if(input_reading > 100){//x6700
+    dist_transform = 2.5;
+  }
+  else if(input_reading > 62){//x5a00
+    dist_transform = 3.0;
+  }
+  else if(input_reading > 41){//x4d00
+    dist_transform = 3.5;
+  }
+  else if(input_reading > 30){//x4300
+    dist_transform = 4.0;
+  }
+  else if(input_reading > 24){//x3a00
+    dist_transform = 4.5;
+  }
+  else if(input_reading > 20){//x3400
+    dist_transform = 5.0;
+  }
+  else if(input_reading > 17){//x2f00
+    dist_transform = 5.5;
+  }
+  else if(input_reading > 14){//x2a00
+    dist_transform = 6.0;
+  }
+  else if(input_reading > 11){//x2500
+    dist_transform = 6.5;
+  }
+  else if(input_reading > 10){//x1f00
+    dist_transform = 7.0;
+  }
+  else if(input_reading > 9){//x1e00
+    dist_transform = 7.5;
+  }
+  else if(input_reading > 8){//x1c00
+    dist_transform = 8.0;
+  }
+  else if(input_reading > 7){//x1900
+    dist_transform = 9.0;
+  }
+  else if(input_reading > 6){//x1600
+    dist_transform = 10.5;
+  }
+  else if(input_reading > 5){//x1400
+    dist_transform = 12.0;
+  }
+  else if(input_reading > 4){//x1200
+    dist_transform = 14.0;
+  }
+  else if(input_reading > 3){//x1000
+    dist_transform = 16.0;
+  }
+  else if(input_reading > 2){//x0f00
+    dist_transform = 18.0;
+  }
+  else{
+    dist_transform = 20.0;
+  }
+  return dist_transform;
 }
 
 /*convertReading(double reading)
@@ -99,6 +166,8 @@ void initStateMachine(){
 
 void baseState(){
   Serial.println("baseState");
+  Serial.println(start_height);
+  Serial.println(container_height);
   if(start_height != 0 && container_height != 0){
     // Only run if we have actually set the heights
     // This should run once every half second or so
@@ -113,10 +182,10 @@ void baseState(){
     Serial.println(distance_data_out);
 
     temp_reading = analogRead(TEMPPIN);   // Read temperature value
-    dough_button = ~analogRead(DOUGHPIN);   // Read dough button. active low
-    container_button = ~analogRead(CONTAINERPIN); // Read container button. active low
-    confirm_button = ~analogRead(CONFIRMPIN); // Read confirm button. active low
-    cancel_button = ~analogRead(CANCELPIN); // Read cancel button. active low
+    //dough_button = digitalRead(DOUGHPIN) != HIGH;   // Read dough button. active low
+    //container_button = digitalRead(CONTAINERPIN) != HIGH; // Read container button. active low
+    //confirm_button = digitalRead(CONFIRMPIN) != HIGH; // Read confirm button. active low
+    //cancel_button = digitalRead(CANCELPIN) != HIGH; // Read cancel button. active low
     
     current_temperature = ((((temp_reading*330.0)/(1024.0)) - 273.15) * (9.0/5)) + 32;  // Temp in F. 330 because 3.3v. 1024 because 10 bit value return
 
@@ -139,12 +208,18 @@ void baseState(){
 
 void doughStageState(){
   Serial.println("doughStageState");
-  stringToDisplay("Dough Staging Options", "1. Press confirm to change dough height","2. Press cancel to go back", "3. Press container to go to container staging");
+  if(display_flag){
+    stringToDisplay("Dough Staging Options", "1. Press confirm to change dough height","2. Press cancel to go back", "3. Press container to go to container staging");
+    display_flag = false;
+  }
 }
 
 void containerStageState(){
   Serial.println("containerStageState");
-  stringToDisplay("Container Staging Options", "1. Press confirm to change container height","2. Press cancel to go back", "3. Press dough to go to dough staging");
+  if(display_flag){
+    stringToDisplay("Container Staging Options", "1. Press confirm to change container height","2. Press cancel to go back", "3. Press dough to go to dough staging");
+    display_flag = false;
+  }
 }
 
 void modifyDoughState(){
@@ -161,74 +236,86 @@ void modifyContainerState(){
 
 void initializeDeviceContainer(){
   // Print screen out for initialization (acttually do this in the setup code)
-  stringToDisplay("Please set the container height", "1. Press confirm when ready","", "");
+  Serial.println("initializeDeviceContainer");
+  if(display_flag){
+    stringToDisplay("Please set the container height", "1. Press confirm when ready","", "");
+    display_flag = false;
+  }
 }
 
 void initializeDeviceDough(){
   // Print screen out for initialization (acttually do this in the setup code)
-  stringToDisplay("Please set the dough height", "1. Press confirm when ready", "", "");
+  Serial.println("initializeDeviceDough");
+  if(display_flag){
+    stringToDisplay("Please set the dough height", "1. Press confirm when ready", "", "");
+    display_flag = false;
+  }
 }
 
 bool transitionS0S5(){
   if(start_height == 0 && container_height == 0){
+    display_flag = true;
     return true;
   }
   return false;
 }
 
 bool transitionS5S4(){
-  if(confirm_button){
+  if(digitalRead(CONFIRMPIN) != HIGH){
     return true;
   }
   return false;
 }
 
 bool transitionS4S6(){
-  if(start_height == 0){
+  if(!start_height){
+    display_flag = true;
     return true;
   }
   return false;
 }
 
 bool transitionS6S3(){
-  if(confirm_button){
+  if(digitalRead(CONFIRMPIN) != HIGH){
     return true;
   }
   return false;
 }
 
 bool transitionS0S1(){
-  if(cancel_button || confirm_button || container_button){
+  if(digitalRead(CANCELPIN) != HIGH || digitalRead(CONFIRMPIN) != HIGH || digitalRead(CONTAINERPIN) != HIGH){
     return false;
   }
-  else if(dough_button){
+  else if(digitalRead(DOUGHPIN) != HIGH){
+    display_flag = true;
     return true;
   }
   return false;
 }
 
 bool transitionS0S2(){
-  if(cancel_button || confirm_button){
+  if(digitalRead(CANCELPIN) != HIGH || digitalRead(CONFIRMPIN) != HIGH){
     return false;
   }
-  else if(container_button){
+  else if(digitalRead(CONTAINERPIN) != HIGH){
+    display_flag = true;
     return true;
   }
   return false;
 }
 
 bool transitionS1S3(){
-  if(cancel_button){
+  if(digitalRead(CANCELPIN) != HIGH){
     return false;
   }
-  else if(confirm_button){
+  else if(digitalRead(CONFIRMPIN) != HIGH){
     return true;
   }
   return false;
 }
 
 bool transitionS1S0(){
-  if(cancel_button){
+  if(digitalRead(CANCELPIN) != HIGH){
     display_count = 0;  // reset display_count so that old display writes
     return true;
   }
@@ -236,27 +323,28 @@ bool transitionS1S0(){
 }
 
 bool transitionS1S2(){
-  if(cancel_button || confirm_button){
+  if(digitalRead(CANCELPIN) != HIGH || digitalRead(CONFIRMPIN) != HIGH){
     return false;
   }
-  else if(container_button){
+  else if(digitalRead(CONTAINERPIN) != HIGH){
+    display_flag = true;
     return true;
   }
   return false;
 }
 
 bool transitionS2S4(){
-  if(cancel_button){
+  if(digitalRead(CANCELPIN) != HIGH){
     return false;
   }
-  else if(confirm_button){
+  else if(digitalRead(CONFIRMPIN) != HIGH){
     return true;
   }
   return false;
 }
 
 bool transitionS2S0(){
-  if(cancel_button){
+  if(digitalRead(CANCELPIN) != HIGH){
     display_count = 0;  // reset display_count so that old display writes
     return true;
   }
@@ -264,10 +352,11 @@ bool transitionS2S0(){
 }
 
 bool transitionS2S1(){
-  if(cancel_button || confirm_button || container_button){
+  if(digitalRead(CANCELPIN) != HIGH || digitalRead(CONFIRMPIN) != HIGH || digitalRead(CONTAINERPIN) != HIGH){
     return false;
   }
-  else if(dough_button){
+  else if(digitalRead(DOUGHPIN) != HIGH){
+    display_flag = true;
     return true;
   }
   return false;
@@ -280,7 +369,10 @@ bool transitionS3S0(){
 
 bool transitionS4S0(){
   display_count = 0;  // reset display_count so that old display writes
-  return true;
+  if(start_height){
+    return true;
+  }
+  return false;
 }
 
 /* void displaySensorReadings(double start_height, double current_height, double peak_height, double current_temperature)
@@ -328,7 +420,7 @@ void stringToDisplay(String s1, String s2, String s3, String s4)
 {
     myScreen.setOrientation(ORIENTATION_LANDSCAPE);
     myScreen.setPenSolid(false);
-    myScreen.selectFont(Font_Terminal12x16);
+    myScreen.selectFont(Font_Terminal6x8);
 
     uint16_t x, y, dx, dy;
 
@@ -379,9 +471,11 @@ void setup() {
   current_height = 0;
   current_temperature = 0;
   container_height = 0;
+  display_flag = true; // true means we need to set the display
 
   Serial.print("Setup is done!");
   stringToDisplay("Welcome to DigiDough!", "Startup will begin shortly", "", "");
+  delay(3000);
 }
 
 void loop() {
