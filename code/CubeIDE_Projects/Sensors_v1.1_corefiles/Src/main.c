@@ -82,6 +82,7 @@ int main(void) {
 	int16_t val;
 	float distin;
 	float distcm;
+	float dist_transform;
 
 	/* USER CODE END 1 */
 
@@ -136,13 +137,105 @@ int main(void) {
 //				val = ((int16_t) buf[0] << 4) | (buf[1] >> 4);
 //			}
 //		}
-		buf2[0] = 0x11;
-		buf2[1] = 0x22;
-		//HAL_I2C_Mem_Write(&hi2c1, VCNL_ADDR, REG_DIST, I2C_MEMADD_SIZE_8BIT, buf2, 2, 100);
+		buf2[0] = 0x00;
+		buf2[1] = 0x00;
+		HAL_I2C_Mem_Write(&hi2c1, VCNL_ADDR, 0x03, I2C_MEMADD_SIZE_8BIT, buf2, 2, 100);
+		buf2[0] = 0x00;
+		buf2[1] = 0x07;
+		HAL_I2C_Mem_Write(&hi2c1, VCNL_ADDR, 0x04, I2C_MEMADD_SIZE_8BIT, buf2, 2, 100);
 		if (HAL_I2C_Mem_Read(&hi2c1, VCNL_ADDR, REG_DIST, I2C_MEMADD_SIZE_8BIT, buf, 2, 100) == HAL_OK) {
 			val = ((int16_t) buf[1]) | (buf[0] << 8);
-			distcm = val * 300.0 / 65535.0;
-			distin = distcm / 2.54;
+			double dist_transform;
+			  if(val > 54528){//xd500
+			    dist_transform = 3.5;
+			  }
+			  else if(val > 36864){//x9000
+			    dist_transform = 4.0;
+			  }
+			  else if(val > 31232){//x7a00
+			    dist_transform = 4.5;
+			  }
+			  else if(val > 26368){//x6700
+			    dist_transform = 5.0;
+			  }
+			  else if(val > 23040){//x5a00
+			    dist_transform = 5.5;
+			  }
+			  else if(val > 19712){//x4d00
+			    dist_transform = 6.0;
+			  }
+			  else if(val > 17152){//x4300
+			    dist_transform = 6.5;
+			  }
+			  else if(val > 14848){//x3a00
+			    dist_transform = 7.0;
+			  }
+			  else if(val > 13312){//x3400
+			    dist_transform = 7.5;
+			  }
+			  else if(val > 12032){//x2f00
+			    dist_transform = 8.0;
+			  }
+			  else if(val > 10752){//x2a00
+			    dist_transform = 8.5;
+			  }
+			  else if(val > 9472){//x2500
+			    dist_transform = 9.0;
+			  }
+			  else if(val > 7936){//x1f00
+			    dist_transform = 9.5;
+			  }
+			  else if(val > 7680){//x1e00
+			    dist_transform = 10.0;
+			  }
+			  else if(val > 7168){//x1c00
+			    dist_transform = 10.5;
+			  }
+			  else if(val > 6400){//x1900
+			    dist_transform = 11.0;
+			  }
+			  else if(val > 5632){//x1600
+			    dist_transform = 11.5;
+			  }
+			  else if(val > 5120){//x1400
+			    dist_transform = 12.0;
+			  }
+			  else if(val > 4608){//x1200
+			    dist_transform = 12.5;
+			  }
+			  else if(val > 4096){//x1000
+			    dist_transform = 13.0;
+			  }
+			  else if(val > 3840){//x0f00
+			    dist_transform = 14.0;
+			  }
+			  else if(val > 3584){//x0e00
+			    dist_transform = 15.0;
+			  }
+			  else if(val > 3072){//x0c00
+			    dist_transform = 16.0;
+			  }
+			  else if(val > 4096){//x0b00
+			    dist_transform = 17.0;
+			  }
+			  else if(val > 3840){//x0a00
+			    dist_transform = 18.0;
+			  }
+			  else if(val > 3584){//x0900
+			    dist_transform = 19.0;
+			  }
+			  else if(val > 3072){//x0800
+			    dist_transform = 20.0;
+			  }
+			  else if(val > 3584){//x0700
+			    dist_transform = 21.0;
+			  }
+			  else if(val > 3072){//x0600
+			    dist_transform = 23.0;
+			  }
+			  else{
+			    dist_transform = 25.0;
+			  }
 		} else {
 			strcpy((char*) buf, "Error\r\n");
 		}
