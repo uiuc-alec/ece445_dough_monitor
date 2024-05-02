@@ -118,3 +118,5 @@ Once it was all functional, we assembled it and tested everything to get our fin
 There was a lot of work that went into the week of the 24th and the tail end of the prior week to get this device to work (I don't feel like including all of the details now since it was just a lot of documentation reading and debugging). Jake and I are very proud of the completed device, and this class was very interesting (and challenging). 
 
 The rest of the entries will be photos of our device. The [video of our project](https://www.youtube.com/watch?v=4N0sI_6v96w) is something I made as well, and we hope to make a funnier version of this video that the course staff can use in the future as well. 
+
+Here is our [folder](https://drive.google.com/file/d/1Dg1JQNrsrMac63QMrv0qBbfDnZyn2Yyy/view?usp=sharing) with all of our photos and videos of DigiDough. Thanks for the great semester.
