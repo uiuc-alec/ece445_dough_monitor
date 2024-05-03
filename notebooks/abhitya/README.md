@@ -170,7 +170,7 @@ Final presentation went well and I think everyone enjoyed both looking at our sl
 
 Final Paper
 -----------
-Did most parts of the final paper
+Wrote most of the final paper
 * All the formatting, correct font, correct sizing, correct headings
 * All of the Figure/Table labelling and in text citations for sources and figures/tables
 * Ensuring the spacing was correct throughout the paper
