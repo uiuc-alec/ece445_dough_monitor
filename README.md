@@ -4,7 +4,7 @@ Repository and Electronic Lab Notebook for the SP24 Dough Monitor ECE 445 team
 
 ## Overview
 
-The dough monitor is intended to be a device that can attach to most any enclosures (tubs, jars, etc.) to monitor the height and temperature of the dough or starter as it is rising. By calibrating the device at the start of the process, the LCD display will show the temperature, lowest height, current height, and max height. This will help users know if their dough or starter is at the right temperature and when it is ready to be cooked or used for other purposes.
+The dough monitor is intended to be a device that can attach to most any enclosures (tubs, jars, etc.) to monitor the height and temperature of the dough or starter as it is rising. By calibrating the device at the start of the process, the e-Paper display will show the temperature, lowest height, current height, and max height. This will help users know if their dough or starter is at the right temperature and when it is ready to be cooked or used for other purposes.
 
 Team Members:  
 
